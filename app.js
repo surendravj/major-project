@@ -19,6 +19,7 @@ btn.addEventListener("click", async function () {
       width: image.width,
       height: image.height,
     };
+    console.log(detection)
     if (detection.length != 0) {
       data = detection;
       image.style.display = "none";
@@ -71,7 +72,6 @@ function intilaizeEmotions() {
 }
 
 function drawchart() {
-  console.log()
   document.getElementById('a-value').innerText=(Math.random()*(0.8-0.5)+0.5).toString()
   let expressions = data[0].expressions;
   let emotions = [];
