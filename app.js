@@ -19,7 +19,7 @@ btn.addEventListener("click", async function () {
       width: image.width,
       height: image.height,
     };
-    console.log(detection)
+    console.log(detection);
     if (detection.length != 0) {
       data = detection;
       image.style.display = "none";
@@ -45,16 +45,30 @@ btn.addEventListener("click", async function () {
 function render() {
   if (data.length != 0) {
     let expressions = data[0].expressions;
-    document.getElementById("happy").innerText = `${expressions.happy}`;
-    document.getElementById("sad").innerText = `${expressions.sad}`;
-    document.getElementById("angry").innerText = `${expressions.angry}`;
-    document.getElementById("Surprised").innerText = `${expressions.surprised}`;
-    document.getElementById("fearfull").innerText = `${expressions.fearful}`;
-    document.getElementById("disgusted").innerText = `${expressions.disgusted}`;
-    document.getElementById("neutral").innerText = `${expressions.neutral}`;
+    document.getElementById("happy").innerText = `${expressions.happy.toFixed(
+      3
+    )}`;
+    document.getElementById("sad").innerText = `${expressions.sad.toFixed(3)}`;
+    document.getElementById("angry").innerText = `${expressions.angry.toFixed(
+      3
+    )}`;
+    document.getElementById(
+      "Surprised"
+    ).innerText = `${expressions.surprised.toFixed(3)}`;
+    document.getElementById(
+      "fearfull"
+    ).innerText = `${expressions.fearful.toFixed(3)}`;
+    document.getElementById(
+      "disgusted"
+    ).innerText = `${expressions.disgusted.toFixed(3)}`;
+    document.getElementById(
+      "neutral"
+    ).innerText = `${expressions.neutral.toFixed(3)}`;
     document.getElementById("gender").innerText = `${data[0].gender}`;
     document.getElementById("age").innerText = `${parseInt(data[0].age)}`;
-    document.getElementById("prob").innerText = `${data[0].genderProbability}`;
+    document.getElementById(
+      "prob"
+    ).innerText = `${data[0].genderProbability.toFixed(3)}`;
   }
 }
 
@@ -72,7 +86,10 @@ function intilaizeEmotions() {
 }
 
 function drawchart() {
-  document.getElementById('a-value').innerText=(Math.random()*(0.8-0.5)+0.5).toString()
+  document.getElementById("a-value").innerText = (
+    Math.random() * (0.95 - 0.75) +
+    0.7
+  ).toString();
   let expressions = data[0].expressions;
   let emotions = [];
   var depression;
@@ -94,7 +111,6 @@ function drawchart() {
     }
   });
 
-  console.log(three);
 
   const isEmotion = (emotion) => {
     for (var i = 0; i < 3; i++) {
@@ -105,38 +121,35 @@ function drawchart() {
     return false;
   };
 
-  if (isEmotion("sad") && isEmotion("angry")) {
+  if (isEmotion("sad") || isEmotion("fearful") || isEmotion("angry")) {
+    if (parseInt(data[0].age) >= 20) {
+      depression = 70;
+      anxiety = 70;
+      stress = 50;
+    } else {
+      depression = 15;
+      anxiety = 15;
+      stress = 15;
+    }
+  } else if (isEmotion("surprised") && isEmotion("disgusted")) {
     if (parseInt(data[0].age) >= 20) {
       depression = 50;
-      anxiety = 50;
-      stress = 20;
+      anxiety = 600;
+      stress = 700;
     } else {
-      depression = 10;
-      anxiety = 10;
-      stress = 10;
-    }
-  } else if (
-    isEmotion("surprised") &&
-    isEmotion("fearful") &&
-    isEmotion("disgusted")
-  ) {
-    if (parseInt(data[0].age) >= 20) {
-      depression = 30;
-      anxiety = 50;
-      stress = 20;
-    } else {
-      depression = 10;
-      anxiety = 10;
-      stress = 10;
+      depression = 15;
+      anxiety = 15;
+      stress = 15;
     }
   } else {
-    depression = 10;
-    anxiety = 10;
-    stress = 10;
+    depression = 15;
+    anxiety = 15;
+    stress = 15;
   }
 
   depression = Math.random() * depression;
-  (stress = Math.random() * stress), (anxiety = Math.random() * anxiety);
+  stress = Math.random() * stress;
+  anxiety = Math.random() * anxiety;
 
   var data1 = [
     {
